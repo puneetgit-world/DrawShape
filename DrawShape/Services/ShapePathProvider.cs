@@ -15,7 +15,7 @@ namespace DrawShape.Services
         {
             try
             {
-                return ShapePathHelper.PathForTriangle(side, side); // Equilateral Triangle has same lenth of sides i.e Same height and width
+                return ShapePathHelper.PathForTriangle(side, side, shapeType: ShapeType.EquilateralTriangle); // Equilateral Triangle has same lenth of sides i.e Same height and width
             }
             catch (Exception)
             {
@@ -27,7 +27,7 @@ namespace DrawShape.Services
         {
             try
             {
-                return ShapePathHelper.PathForTriangle(width, height);
+                return ShapePathHelper.PathForTriangle(width, height, shapeType: ShapeType.IsoscelesTriangle);
             }
             catch (Exception)
             {
@@ -39,7 +39,7 @@ namespace DrawShape.Services
         {
             try
             {
-                return ShapePathHelper.PathForTriangle(width, height, hasNoEqualAngle: true);
+                return ShapePathHelper.PathForTriangle(width, height, hasNoEqualAngle: true, shapeType: ShapeType.ScaleneTriangle);
             }
             catch (Exception)
             {
@@ -53,7 +53,7 @@ namespace DrawShape.Services
         {
             try
             {
-                return ShapePathHelper.PathForPolygon(side, numberOfSides: 5);
+                return ShapePathHelper.PathForPolygon(side, numberOfSides: 5, shapeType: ShapeType.Pentagon);
             }
             catch (Exception)
             {
@@ -65,7 +65,7 @@ namespace DrawShape.Services
         {
             try
             {
-                return ShapePathHelper.PathForPolygon(side, numberOfSides: 6);
+                return ShapePathHelper.PathForPolygon(side, numberOfSides: 6, shapeType: ShapeType.Hexagon);
             }
             catch (Exception)
             {
@@ -78,7 +78,7 @@ namespace DrawShape.Services
         {
             try
             {
-                return ShapePathHelper.PathForPolygon(side, numberOfSides: 7);
+                return ShapePathHelper.PathForPolygon(side, numberOfSides: 7, shapeType: ShapeType.Heptagon);
             }
             catch (Exception)
             {
@@ -90,7 +90,7 @@ namespace DrawShape.Services
         {
             try
             {
-                return ShapePathHelper.PathForPolygon(side, numberOfSides: 8);
+                return ShapePathHelper.PathForPolygon(side, numberOfSides: 8,shapeType : ShapeType.Octagon);
             }
             catch (Exception)
             {
@@ -104,9 +104,9 @@ namespace DrawShape.Services
         {
             try
             {
-                var shapePath = new ShapePath(ShapePathType.Box);
+                var shapePath = new ShapePath(ShapePathType.Box, ShapeType.Parallelogram);
                 shapePath.SetSize(width, height);
-                var canvasCenterPos = ShapePathHelper.GetCenterOfCanvas(shapePath.Size);
+                var canvasCenterPos = ShapePathHelper.GetCenterOfCanvas(shapePath.Size, ShapeType.Parallelogram);
 
                 shapePath.AddCordinate(canvasCenterPos.XPoint - (width / 2), canvasCenterPos.YPoint - (height / 2));
                 shapePath.AddCordinate(canvasCenterPos.XPoint + (width / 2), canvasCenterPos.YPoint - (height / 2));
@@ -124,7 +124,7 @@ namespace DrawShape.Services
         {
             try
             {
-                return ShapePathHelper.PathForBox(width, height);
+                return ShapePathHelper.PathForBox(width, height, ShapeType.Rectangle);
             }
             catch (Exception)
             {
@@ -137,7 +137,7 @@ namespace DrawShape.Services
         {
             try
             {
-                return ShapePathHelper.PathForBox(side, side);
+                return ShapePathHelper.PathForBox(side, side, ShapeType.Square);
             }
             catch (Exception)
             {
@@ -149,9 +149,9 @@ namespace DrawShape.Services
         {
             try
             {
-                var shapePath = new ShapePath(ShapePathType.Arc);
+                var shapePath = new ShapePath(ShapePathType.Arc, ShapeType.Circle);
                 shapePath.SetRadius(radius);
-                var canvasCenterPos = ShapePathHelper.GetCenterOfCanvas(shapePath.Size);
+                var canvasCenterPos = ShapePathHelper.GetCenterOfCanvas(shapePath.Size, ShapeType.Circle);
 
                 shapePath.AddCordinate(canvasCenterPos.XPoint, canvasCenterPos.YPoint);
                 return shapePath;

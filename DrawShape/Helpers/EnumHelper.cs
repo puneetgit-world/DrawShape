@@ -28,6 +28,9 @@ namespace DrawShape.Helpers
                     if (attr != null)
                     {
                         return attr.Description;
+                    }else
+                    {
+                        return name;
                     }
                 }
             }

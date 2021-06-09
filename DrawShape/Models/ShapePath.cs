@@ -15,19 +15,22 @@ namespace DrawShape.Models
             Size = new Size();
         }
 
-        public ShapePath(ShapePathType shapePathType) : this()
+        public ShapePath(ShapePathType shapePathType, ShapeType shapeType) : this()
         {
-            ShapePathType = shapePathType;            
+            ShapePathType = shapePathType;
+            ShapeType = shapeType;
         }
 
         [JsonProperty("shapePathType")]
         public ShapePathType ShapePathType { get; set; }
 
+        public ShapeType ShapeType { get; set; }
+
         [JsonProperty("coordinates")]
         public List<ShapePathCordinate> Coordinates { get; set; }
 
         [JsonProperty("size")]
-        public Size Size { get; set; }       
+        public Size Size { get; set; }
 
         public void AddCordinate(double x, double y)
         {
@@ -46,11 +49,10 @@ namespace DrawShape.Models
         public void SetRadius(double radius)
         {
             Size = new Size(radius);
-        }
-
+        }       
     }
 
-   
+
 
 
 }

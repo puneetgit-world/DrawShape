@@ -2,7 +2,7 @@
 @using Newtonsoft.Json;
 @{
 
-    var canvasSize = DrawShape.Helpers.ShapePathHelper.DetermineCanvasSize(Model.ShapeToDraw.Size);
+    var canvasSize = DrawShape.Helpers.ShapePathHelper.DetermineCanvasSize(Model.ShapeToDraw.Size,Model.ShapeToDraw.ShapeType);
 }
 
 <div>
