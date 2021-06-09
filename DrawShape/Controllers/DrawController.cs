@@ -1,4 +1,7 @@
-﻿using DrawShape.Services;
+﻿using DrawShape.Helpers;
+using DrawShape.Models;
+using DrawShape.Models.ViewModels;
+using DrawShape.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +13,7 @@ namespace DrawShape.Controllers
     public class DrawController : Controller
     {
         private readonly IShapePathProvider _shapePathProvider;
+        const string CANVAS_VIEW = "Canvas";
 
         public DrawController(IShapePathProvider shapePathProvider)
         {
@@ -17,63 +21,87 @@ namespace DrawShape.Controllers
         }
 
 
-        // GET: Draw
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Circle(double radius)
+        [HttpPost]
+        public ActionResult ParseInput(string instruction)
         {
-            return View("Canvas", _shapePathProvider.PathForCircle(radius));
+            TempData["instruction"] = instruction;
+            var parsedInstruction = LanguageHelper.ParseInstruction(instruction);
+            return RedirectToAction(parsedInstruction.ShapeType.ToString(), parsedInstruction.Size);
         }
 
-        public ActionResult Rectangle(double width, double height)
+        public ActionResult Circle(Size size)
         {
-            return View("Canvas", _shapePathProvider.PathForRectangle(width, height));
+            var viewModel = new CanvasViewModel(_shapePathProvider.PathForCircle(size.Radius));
+            return View(CANVAS_VIEW, viewModel);
         }
 
-        public ActionResult IsoscelesTriangle(double width, double height)
+        public ActionResult Rectangle(Size size)
         {
-            return View("Canvas", _shapePathProvider.PathForIsoscelesTriangle(width, height));
+            var viewModel = new CanvasViewModel(_shapePathProvider.PathForRectangle(size.Width, size.Height));
+            return View(CANVAS_VIEW, viewModel);
         }
 
-        public ActionResult ScaleneTriangle(double width, double height)
+        public ActionResult IsoscelesTriangle(Size size)
         {
-            return View("Canvas", _shapePathProvider.PathForScaleneTriangle(width, height));
+            var viewModel = new CanvasViewModel(_shapePathProvider.PathForIsoscelesTriangle(size.Width, size.Height));
+            return View(CANVAS_VIEW, viewModel);
         }
 
-        public ActionResult EquilateralTriangle(double side)
+        public ActionResult ScaleneTriangle(Size size)
         {
-            return View("Canvas", _shapePathProvider.PathForEquilateralTriangle(side));
+            var viewModel = new CanvasViewModel(_shapePathProvider.PathForScaleneTriangle(size.Width, size.Height));
+            return View(CANVAS_VIEW, viewModel);
         }
-        public ActionResult Square(double side)
+
+        public ActionResult EquilateralTriangle(Size size)
         {
-            return View("Canvas", _shapePathProvider.PathForSquare(side));
+            var viewModel = new CanvasViewModel(_shapePathProvider.PathForEquilateralTriangle(size.Width));
+            return View(CANVAS_VIEW, viewModel);
         }
-        public ActionResult Parallelogram(double width, double height)
+        public ActionResult Square(Size size)
         {
-            return View("Canvas", _shapePathProvider.PathForParallelogram(width, height));
+            var viewModel = new CanvasViewModel(_shapePathProvider.PathForSquare(size.Width));
+            return View(CANVAS_VIEW, viewModel);
         }
-        public ActionResult Pentagon(double side)
+        public ActionResult Parallelogram(Size size)
         {
-            return View("Canvas", _shapePathProvider.PathForPentagon(side));
+            var viewModel = new CanvasViewModel(_shapePathProvider.PathForParallelogram(size.Width, size.Height));
+            return View(CANVAS_VIEW, viewModel);
         }
-        public ActionResult Hexagon(double side)
+        public ActionResult Pentagon(Size size)
         {
-            return View("Canvas", _shapePathProvider.PathForHexagon(side));
+            var viewModel = new CanvasViewModel(_shapePathProvider.PathForPentagon(size.Width));
+            return View(CANVAS_VIEW, viewModel);
         }
-        public ActionResult Heptagon(double side)
+        public ActionResult Hexagon(Size size)
         {
-            return View("Canvas", _shapePathProvider.PathForHeptagon(side));
+            var viewModel = new CanvasViewModel(_shapePathProvider.PathForHexagon(size.Width));
+            return View(CANVAS_VIEW, viewModel);
         }
-        public ActionResult Octagon(double side)
+        public ActionResult Heptagon(Size size)
         {
-            return View("Canvas", _shapePathProvider.PathForOctagon(side));
+            var viewModel = new CanvasViewModel(_shapePathProvider.PathForHeptagon(size.Width));
+            return View(CANVAS_VIEW, viewModel);
         }
-        public ActionResult Oval(double radius)
+        public ActionResult Octagon(Size size)
         {
-            return View("Canvas", _shapePathProvider.PathForOval(radius));
+            var viewModel = new CanvasViewModel(_shapePathProvider.PathForOctagon(size.Width));
+            return View(CANVAS_VIEW, viewModel);
+        }
+        public ActionResult Oval(Size size)
+        {
+            var viewModel = new CanvasViewModel(_shapePathProvider.PathForOval(size.Radius));
+            return View(CANVAS_VIEW, viewModel);
+        }
+
+        public ActionResult NotSupported()
+        {
+            return View();
         }
     }
 }

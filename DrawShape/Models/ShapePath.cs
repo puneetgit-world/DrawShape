@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DrawShape.Models.Enums;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,12 +50,7 @@ namespace DrawShape.Models
 
     }
 
-    public enum ShapePathType
-    {
-        Arc = 1,
-        Line = 2,
-        Box = 3
-    }
+   
 
 
 }
