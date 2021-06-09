@@ -104,9 +104,9 @@ namespace DrawShape.Services
         {
             try
             {
-                var shapePath = new ShapePath(ShapePathType.Box, ShapeType.Parallelogram);
+                var shapePath = new ShapePath(ShapePathType.Line, ShapeType.Parallelogram);
                 shapePath.SetSize(width, height);
-                var canvasCenterPos = ShapePathHelper.GetCenterOfCanvas(shapePath.Size, ShapeType.Parallelogram);
+                var canvasCenterPos = ShapePathHelper.GetCenterOfCanvas(shapePath.Size, ShapeType.Parallelogram,15);
 
                 shapePath.AddCordinate(canvasCenterPos.XPoint - (width / 2), canvasCenterPos.YPoint - (height / 2));
                 shapePath.AddCordinate(canvasCenterPos.XPoint + (width / 2), canvasCenterPos.YPoint - (height / 2));

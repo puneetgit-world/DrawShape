@@ -24,9 +24,9 @@ namespace DrawShape.Helpers
         {
             var shapePath = new ShapePath(ShapePathType.Line, shapeType);
             shapePath.SetSize(width, height);
-            var canvasCenterPos = GetCenterOfCanvas(shapePath.Size, shapeType);
+            var canvasCenterPos = GetCenterOfCanvas(shapePath.Size, shapeType, shapeType == ShapeType.ScaleneTriangle ? -50 : 0);
 
-            shapePath.AddCordinate(canvasCenterPos.XPoint, canvasCenterPos.YPoint + (hasNoEqualAngle ? -(height / 2) : 0));
+            shapePath.AddCordinate(canvasCenterPos.XPoint, canvasCenterPos.YPoint - (height / 2));
             shapePath.AddCordinate(canvasCenterPos.XPoint - (hasNoEqualAngle ? (width * .25) : (width / 2)), canvasCenterPos.YPoint + (height / 2));
             shapePath.AddCordinate(canvasCenterPos.XPoint + (hasNoEqualAngle ? (width * .75) : (width / 2)), canvasCenterPos.YPoint + (height / 2));
             return shapePath;
@@ -60,26 +60,28 @@ namespace DrawShape.Helpers
                 case ShapeType.IsoscelesTriangle:
                 case ShapeType.ScaleneTriangle:
                     canvasSide = Math.Max(shapeSize.Width, shapeSize.Height);
+                    canvasSide = canvasSide + (canvasSide * .10);
                     break;
                 case ShapeType.Circle:
                 case ShapeType.Oval:
                     canvasSide = shapeSize.Radius * 2;
                     break;
-                case ShapeType.Pentagon: 
+                case ShapeType.Pentagon:
                     canvasSide = shapeSize.Width * 2;
                     break;
                 case ShapeType.Hexagon:
-                case ShapeType.Heptagon: 
+                case ShapeType.Heptagon:
                     canvasSide = shapeSize.Width * 3;
                     break;
-                case ShapeType.Octagon: 
+                case ShapeType.Octagon:
                     canvasSide = shapeSize.Width * 4;
                     break;
-                case ShapeType.Parallelogram: 
-                    canvasSide = shapeSize.Width * 1.30; 
+                case ShapeType.Parallelogram:
+                    canvasSide = Math.Max(shapeSize.Width, shapeSize.Height);
+                    canvasSide = canvasSide * 1.30;
                     break;
             }
-          
+
             return new Size
             {
                 Width = canvasSide,

@@ -53,7 +53,7 @@ const drawShape= {
     drawShapeWithBox() {
         
         this.canvasContext.beginPath();
-        this.canvasContext.rect(this.firstCoordinate.xPoint, this.firstCoordinate.yPoint, this.size.width, this.size.width);
+        this.canvasContext.rect(this.firstCoordinate.xPoint, this.firstCoordinate.yPoint, this.size.width, this.size.height);
         this.canvasContext.stroke();
     },
 }
