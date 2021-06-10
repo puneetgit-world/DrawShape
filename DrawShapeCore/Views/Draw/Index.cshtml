@@ -1,0 +1,15 @@
+﻿@using DrawShapeCore.Models.Enums;
+
+@{ 
+    var shapesList = DrawShapeCore.Helpers.EnumHelper.GetEnumList<ShapeType>();
+
+}
+<div>
+    <label>Supported shapes are:</label>
+    <ul>
+        @foreach (var shape in shapesList.Skip(1))
+        {
+            <li>@shape</li>
+        }
+    </ul>   
+</div>

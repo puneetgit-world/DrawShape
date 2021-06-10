@@ -1,0 +1,20 @@
+﻿@model DrawShapeCore.Models.ViewModels.CanvasViewModel
+@using Newtonsoft.Json;
+@{
+
+    var canvasSize = DrawShapeCore.Helpers.ShapePathHelper.DetermineCanvasSize(Model.ShapeToDraw.Size,Model.ShapeToDraw.ShapeType);
+}
+
+<div>
+    <canvas data-shape="@JsonConvert.SerializeObject(Model.ShapeToDraw)" id="shapeCanvas" width="@canvasSize.Width" height="@canvasSize.Height">
+        Drawing shape
+    </canvas>
+</div>
+
+@section scripts{
+    <script src="~/js/drawShape.js"></script>
+    <script>
+        drawShape.init("shapeCanvas");
+    </script>
+}
+
