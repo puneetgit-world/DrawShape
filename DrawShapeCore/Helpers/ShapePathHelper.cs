@@ -59,11 +59,11 @@ namespace DrawShapeCore.Helpers
                 case ShapeType.EquilateralTriangle:
                 case ShapeType.IsoscelesTriangle:
                 case ShapeType.ScaleneTriangle:
+                case ShapeType.Oval:
                     canvasSide = Math.Max(shapeSize.Width, shapeSize.Height);
                     canvasSide = canvasSide + (canvasSide * .10);
                     break;
-                case ShapeType.Circle:
-                case ShapeType.Oval:
+                case ShapeType.Circle:               
                     canvasSide = shapeSize.Radius * 2;
                     break;
                 case ShapeType.Pentagon:

@@ -9,6 +9,7 @@ namespace DrawShapeCore.Models.Enums
     {
         Arc = 1,
         Line = 2,
-        Box = 3
+        Box = 3,
+        Ellipse = 4
     }
 }

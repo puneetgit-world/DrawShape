@@ -20,7 +20,7 @@ namespace DrawShapeCore.Services
         ShapePath PathForHeptagon(double side);
         ShapePath PathForOctagon(double side);
         ShapePath PathForCircle(double radius);
-        ShapePath PathForOval(double radius);
+        ShapePath PathForOval(double width, double height);
 
     }
 }

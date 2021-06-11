@@ -1,6 +1,7 @@
 ﻿using DrawShapeCore.Helpers;
 using DrawShapeCore.Models;
 using DrawShapeCore.Models.Enums;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,13 @@ namespace DrawShapeCore.Services
 {
     internal class ShapePathProvider : IShapePathProvider
     {
+        private readonly ILogger<ShapePathProvider> _logger;
+
+        public ShapePathProvider(ILogger<ShapePathProvider> logger)
+        {
+            _logger = logger;
+        }
+
         // T R I A N G L E S
         public ShapePath PathForEquilateralTriangle(double side)
         {
@@ -17,8 +25,9 @@ namespace DrawShapeCore.Services
             {
                 return ShapePathHelper.PathForTriangle(side, side, shapeType: ShapeType.EquilateralTriangle); // Equilateral Triangle has same lenth of sides i.e Same height and width
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 throw;
             }
         }
@@ -29,8 +38,9 @@ namespace DrawShapeCore.Services
             {
                 return ShapePathHelper.PathForTriangle(width, height, shapeType: ShapeType.IsoscelesTriangle);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 throw;
             }
         }
@@ -41,8 +51,9 @@ namespace DrawShapeCore.Services
             {
                 return ShapePathHelper.PathForTriangle(width, height, hasNoEqualAngle: true, shapeType: ShapeType.ScaleneTriangle);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 throw;
             }
         }
@@ -55,8 +66,9 @@ namespace DrawShapeCore.Services
             {
                 return ShapePathHelper.PathForPolygon(side, numberOfSides: 5, shapeType: ShapeType.Pentagon);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 throw;
             }
         }
@@ -67,8 +79,9 @@ namespace DrawShapeCore.Services
             {
                 return ShapePathHelper.PathForPolygon(side, numberOfSides: 6, shapeType: ShapeType.Hexagon);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 throw;
             }
         }
@@ -80,8 +93,9 @@ namespace DrawShapeCore.Services
             {
                 return ShapePathHelper.PathForPolygon(side, numberOfSides: 7, shapeType: ShapeType.Heptagon);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 throw;
             }
         }
@@ -92,8 +106,9 @@ namespace DrawShapeCore.Services
             {
                 return ShapePathHelper.PathForPolygon(side, numberOfSides: 8,shapeType : ShapeType.Octagon);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 throw;
             }
         }
@@ -114,8 +129,9 @@ namespace DrawShapeCore.Services
                 shapePath.AddCordinate(canvasCenterPos.XPoint - (width * .75), canvasCenterPos.YPoint + (height / 2));
                 return shapePath;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 throw;
             }
         }
@@ -126,8 +142,9 @@ namespace DrawShapeCore.Services
             {
                 return ShapePathHelper.PathForBox(width, height, ShapeType.Rectangle);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 throw;
             }
         }
@@ -139,8 +156,9 @@ namespace DrawShapeCore.Services
             {
                 return ShapePathHelper.PathForBox(side, side, ShapeType.Square);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 throw;
             }
         }
@@ -156,22 +174,27 @@ namespace DrawShapeCore.Services
                 shapePath.AddCordinate(canvasCenterPos.XPoint, canvasCenterPos.YPoint);
                 return shapePath;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                _logger.LogError(ex.Message);
                 throw;
             }
         }
 
-        public ShapePath PathForOval(double radius)
+        public ShapePath PathForOval(double width, double height)
         {
             try
             {
-                return null;
-            }
-            catch (Exception)
-            {
+                var shapePath = new ShapePath(ShapePathType.Ellipse, ShapeType.Oval);
+                shapePath.SetSize(width,height);
+                var canvasCenterPos = ShapePathHelper.GetCenterOfCanvas(shapePath.Size, ShapeType.Oval);
 
+                shapePath.AddCordinate(canvasCenterPos.XPoint, canvasCenterPos.YPoint);
+                return shapePath;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
                 throw;
             }
         }

@@ -18,5 +18,7 @@ namespace DrawShapeCore.Models.ViewModels
         }
         public List<string> ErrorMessages { get; set; }
         public ShapePath ShapeToDraw { get; set; }
+
+        public bool HasValidMeasurements { get; set; }
     }
 }

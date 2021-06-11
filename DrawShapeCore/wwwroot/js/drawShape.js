@@ -1,6 +1,6 @@
 ﻿
 
-const drawShape= {
+const drawShape = {
 
     canvasElement: null,
     canvasContext: null,
@@ -27,11 +27,19 @@ const drawShape= {
             case 2: this.drawShapeWithLine(); break;
             /*Box*/
             case 3: this.drawShapeWithBox(); break;
+            /*Ellipse*/
+            case 4: this.drawShapeWithEllipse(); break;
 
             default:
         }
     },
 
+    drawShapeWithEllipse() {
+        this.canvasContext.beginPath();
+        this.canvasContext.ellipse(this.firstCoordinate.xPoint, this.firstCoordinate.yPoint, this.size.width / 2, this.size.height / 2, 0, 0 * Math.PI, Math.PI * 2);
+        this.canvasContext.closePath();
+        this.canvasContext.stroke();
+    },
     drawShapeWithArc() {
         this.canvasContext.beginPath();
         this.canvasContext.arc(this.firstCoordinate.xPoint, this.firstCoordinate.yPoint, this.size.radius, 0 * Math.PI, Math.PI * 2);
@@ -45,13 +53,13 @@ const drawShape= {
         for (var i = 1; i < this.shapePath.coordinates.length; i++) {
             var currentCoordinate = this.shapePath.coordinates[i];
             this.canvasContext.lineTo(currentCoordinate.xPoint, currentCoordinate.yPoint);
-        }        
-        
+        }
+
         this.canvasContext.closePath();
         this.canvasContext.stroke();
     },
     drawShapeWithBox() {
-        
+
         this.canvasContext.beginPath();
         this.canvasContext.rect(this.firstCoordinate.xPoint, this.firstCoordinate.yPoint, this.size.width, this.size.height);
         this.canvasContext.stroke();
